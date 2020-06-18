@@ -2,31 +2,24 @@ package main
 
 import "fmt"
 
-type Shape interface {
+type rect struct {
+	width  float64
+	height float64
+}
+
+type shaper interface {
 	area() float64
 }
 
-func totalArea(shapes ...Shape) float64 {
-	var area float64
-	for _, s := range shapes {
-		area += s.area()
-	}
-
-	return area
+func (r rect) area() float64 {
+	return r.width * r.height
 }
 
-type MultiShape struct {
-	shapes []Shape
-}
-
-func (m *MultiShape) area() float64 {
-	var area float64
-	for _, s := range m.shapes {
-		area += s.area()
-	}
-	return area
+func describe(s shaper) {
+	fmt.Println("area :", s.area())
 }
 
 func main() {
-	fmt.Println(totalArea(&c, &r))
+	r := rect{3, 4}
+	describe(r)
 }
